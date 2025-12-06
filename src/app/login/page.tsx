@@ -6,11 +6,15 @@ import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
+import { checkUserExists } from "@/app/actions/auth";
 
 export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [name, setName] = useState("");
     const [loading, setLoading] = useState(false);
+    const [isSignUp, setIsSignUp] = useState(false);
     const router = useRouter();
     const supabase = createClient();
 
@@ -18,17 +22,61 @@ export default function LoginPage() {
         e.preventDefault();
         setLoading(true);
 
-        const { error } = await supabase.auth.signInWithPassword({
+        try {
+            // 1. Check if user exists
+            const exists = await checkUserExists(email);
+
+            if (!exists) {
+                alert("가입된 내역이 없습니다. 회원가입을 진행해주세요.");
+                setIsSignUp(true);
+                setLoading(false);
+                return;
+            }
+
+            // 2. If exists, attempt login
+            const { error } = await supabase.auth.signInWithPassword({
+                email,
+                password,
+            });
+
+            if (error) {
+                alert("로그인 실패: " + error.message);
+                setLoading(false);
+            } else {
+                router.push("/medical/dashboard");
+            }
+        } catch (error) {
+            console.error(error);
+            alert("오류가 발생했습니다.");
+            setLoading(false);
+        }
+    };
+
+    const handleSignUp = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (password !== confirmPassword) {
+            alert("비밀번호가 일치하지 않습니다.");
+            return;
+        }
+
+        setLoading(true);
+        const { error } = await supabase.auth.signUp({
             email,
             password,
+            options: {
+                data: {
+                    full_name: name,
+                },
+            },
         });
 
         if (error) {
-            alert("로그인 실패: " + error.message);
-            setLoading(false);
+            alert("회원가입 실패: " + error.message);
         } else {
-            router.push("/medical/dashboard");
+            alert("회원가입이 완료되었습니다. 로그인해주세요.");
+            setIsSignUp(false);
         }
+        setLoading(false);
     };
 
     const handleSocialLogin = async (provider: 'google' | 'kakao' | 'naver') => {
@@ -56,14 +104,30 @@ export default function LoginPage() {
                 </Link>
 
                 <div className="text-center mb-8 mt-4">
-                    <h1 className="text-2xl font-bold text-traditional-text mb-2">로그인</h1>
+                    <h1 className="text-2xl font-bold text-traditional-text mb-2">
+                        {isSignUp ? "회원가입" : "로그인"}
+                    </h1>
                     <p className="text-traditional-subtext text-sm">
-                        더 정확한 진단과 처방을 위해<br />
-                        의료진과 연결합니다.
+                        {isSignUp
+                            ? "서비스 이용을 위해 정보를 입력해주세요."
+                            : "더 정확한 진단과 처방을 위해\n의료진과 연결합니다."}
                     </p>
                 </div>
 
-                <form onSubmit={handleLogin} className="space-y-4">
+                <form onSubmit={isSignUp ? handleSignUp : handleLogin} className="space-y-4">
+                    {isSignUp && (
+                        <div>
+                            <label className="block text-sm font-medium text-traditional-text mb-1">성명</label>
+                            <input
+                                type="text"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                className="w-full px-4 py-2 border border-traditional-muted rounded-lg focus:outline-none focus:border-traditional-primary focus:ring-1 focus:ring-traditional-primary"
+                                placeholder="홍길동"
+                                required
+                            />
+                        </div>
+                    )}
                     <div>
                         <label className="block text-sm font-medium text-traditional-text mb-1">이메일</label>
                         <input
@@ -86,14 +150,51 @@ export default function LoginPage() {
                             required
                         />
                     </div>
+                    {isSignUp && (
+                        <div>
+                            <label className="block text-sm font-medium text-traditional-text mb-1">비밀번호 확인</label>
+                            <input
+                                type="password"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                className="w-full px-4 py-2 border border-traditional-muted rounded-lg focus:outline-none focus:border-traditional-primary focus:ring-1 focus:ring-traditional-primary"
+                                placeholder="••••••••"
+                                required
+                            />
+                        </div>
+                    )}
                     <button
                         type="submit"
                         disabled={loading}
                         className="w-full py-3 bg-traditional-primary text-white rounded-lg font-medium hover:bg-traditional-primary/90 transition-colors disabled:opacity-50"
                     >
-                        {loading ? "로그인 중..." : "이메일로 로그인"}
+                        {loading
+                            ? (isSignUp ? "가입 중..." : "로그인 중...")
+                            : (isSignUp ? "회원가입" : "이메일로 로그인")}
                     </button>
                 </form>
+
+                {!isSignUp && (
+                    <div className="mt-4 text-center">
+                        <button
+                            onClick={() => setIsSignUp(true)}
+                            className="text-sm text-traditional-subtext hover:text-traditional-primary underline"
+                        >
+                            계정이 없으신가요? 회원가입
+                        </button>
+                    </div>
+                )}
+
+                {isSignUp && (
+                    <div className="mt-4 text-center">
+                        <button
+                            onClick={() => setIsSignUp(false)}
+                            className="text-sm text-traditional-subtext hover:text-traditional-primary underline"
+                        >
+                            이미 계정이 있으신가요? 로그인
+                        </button>
+                    </div>
+                )}
 
                 <div className="mt-6">
                     <div className="relative">

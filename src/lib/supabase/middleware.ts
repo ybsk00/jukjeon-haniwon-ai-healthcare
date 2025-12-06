@@ -71,10 +71,10 @@ export async function updateSession(request: NextRequest) {
             .eq('user_id', user.id)
             .single()
 
-        // If not staff/doctor, redirect to patient chat
+        // If not staff/doctor, redirect to patient dashboard
         if (!staff || !['doctor', 'admin', 'staff'].includes(staff.role)) {
             const url = request.nextUrl.clone()
-            url.pathname = '/medical/chat'
+            url.pathname = '/medical/patient-dashboard'
             return NextResponse.redirect(url)
         }
     }
