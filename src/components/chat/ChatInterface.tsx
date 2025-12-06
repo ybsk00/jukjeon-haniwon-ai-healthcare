@@ -22,7 +22,7 @@ export default function ChatInterface() {
 
     // Welcome message based on topic
     useEffect(() => {
-        let welcomeMsg = "안녕하세요, 죽전한의원 AI 헬스케어입니다. 궁금한 점을 체크해 보세요.";
+        let welcomeMsg = "안녕하세요, 100년 한의학 AI 헬스케어입니다. 궁금한 점을 체크해 보세요.";
         setMessages([{ role: "ai", content: welcomeMsg }]);
     }, [topic]);
 
@@ -75,11 +75,36 @@ export default function ChatInterface() {
     }
 
     const modules = [
-        { id: "resilience", label: "회복력·면역", icon: Sun, desc: "만성 피로와 잦은 감기" },
-        { id: "women", label: "여성 밸런스", icon: Moon, desc: "생리 주기부터 갱년기까지" },
-        { id: "pain", label: "통증 패턴", icon: Activity, desc: "반복되는 두통, 어깨 결림" },
-        { id: "digestion", label: "소화·수면 리듬", icon: Heart, desc: "더부룩한 속과 깊은 잠" },
-        { id: "pregnancy", label: "임신 준비", icon: Baby, desc: "예비 부모를 위한 필수 체크" },
+        {
+            id: "resilience",
+            label: "회복력·면역",
+            desc: "만성 피로와 잦은 감기",
+            theme: "bg-orange-50 border-orange-100 text-orange-900 ring-orange-200"
+        },
+        {
+            id: "women",
+            label: "여성 밸런스",
+            desc: "생리 주기부터 갱년기까지",
+            theme: "bg-pink-50 border-pink-100 text-pink-900 ring-pink-200"
+        },
+        {
+            id: "pain",
+            label: "통증 패턴",
+            desc: "반복되는 두통, 어깨 결림",
+            theme: "bg-blue-50 border-blue-100 text-blue-900 ring-blue-200"
+        },
+        {
+            id: "digestion",
+            label: "소화·수면 리듬",
+            desc: "더부룩한 속과 깊은 잠",
+            theme: "bg-green-50 border-green-100 text-green-900 ring-green-200"
+        },
+        {
+            id: "pregnancy",
+            label: "임신 준비",
+            desc: "예비 부모를 위한 필수 체크",
+            theme: "bg-purple-50 border-purple-100 text-purple-900 ring-purple-200"
+        },
     ];
 
     return (
@@ -120,16 +145,13 @@ export default function ChatInterface() {
                         <Link
                             key={mod.id}
                             href={`/healthcare/chat?topic=${mod.id}`}
-                            className={`flex flex-col items-center justify-center p-2 rounded-xl border transition-all h-full text-center ${topic === mod.id
-                                ? "bg-white border-traditional-accent shadow-md ring-1 ring-traditional-accent"
-                                : "bg-white border-traditional-muted hover:border-traditional-subtext/50 hover:shadow-sm"
+                            className={`flex flex-col items-center justify-center p-3 rounded-xl border transition-all h-full text-center ${topic === mod.id
+                                ? `bg-white shadow-md ring-2 ${mod.theme.split(' ').pop()}`
+                                : `${mod.theme} hover:brightness-95 hover:shadow-sm`
                                 }`}
                         >
-                            <div className="w-8 h-8 rounded-full bg-traditional-bg flex items-center justify-center mb-2">
-                                <mod.icon size={14} className="text-traditional-subtext" />
-                            </div>
-                            <h3 className="font-bold text-traditional-text text-[11px] leading-tight mb-1">{mod.label}</h3>
-                            <p className="text-[9px] text-traditional-subtext leading-tight line-clamp-2">{mod.desc}</p>
+                            <h3 className="font-bold text-sm md:text-base leading-tight mb-1">{mod.label}</h3>
+                            <p className="text-xs opacity-80 leading-tight line-clamp-2">{mod.desc}</p>
                         </Link>
                     ))}
                 </div>
