@@ -52,10 +52,15 @@ export async function updateSession(request: NextRequest) {
         !request.nextUrl.pathname.startsWith('/auth') &&
         request.nextUrl.pathname.startsWith('/medical') // Protect /medical routes
     ) {
-        // no user, potentially respond by redirecting the user to the login page
-        const url = request.nextUrl.clone()
-        url.pathname = '/login'
-        return NextResponse.redirect(url)
+        // Check for NextAuth session token (support for Naver login)
+        const nextAuthToken = request.cookies.get('next-auth.session-token') || request.cookies.get('__Secure-next-auth.session-token');
+
+        if (!nextAuthToken) {
+            // no user, potentially respond by redirecting the user to the login page
+            const url = request.nextUrl.clone()
+            url.pathname = '/login'
+            return NextResponse.redirect(url)
+        }
     }
 
     // RBAC: Protect Doctor Dashboard

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 
 export default function LoginPage() {
     const [email, setEmail] = useState("");
@@ -30,7 +31,12 @@ export default function LoginPage() {
         }
     };
 
-    const handleSocialLogin = async (provider: 'google' | 'kakao') => {
+    const handleSocialLogin = async (provider: 'google' | 'kakao' | 'naver') => {
+        if (provider === 'naver') {
+            await signIn('naver', { callbackUrl: '/medical/dashboard' });
+            return;
+        }
+
         const { error } = await supabase.auth.signInWithOAuth({
             provider,
             options: {
@@ -99,18 +105,33 @@ export default function LoginPage() {
                         </div>
                     </div>
 
-                    <div className="mt-6 grid grid-cols-2 gap-3">
+                    <div className="mt-6 flex flex-col gap-3">
                         <button
                             onClick={() => handleSocialLogin('kakao')}
-                            className="flex items-center justify-center px-4 py-2 border border-traditional-muted rounded-lg hover:bg-yellow-50 transition-colors bg-[#FEE500] text-[#000000]"
+                            className="flex items-center justify-center w-full px-4 py-3 border border-traditional-muted rounded-lg hover:bg-yellow-50 transition-colors bg-[#FEE500] text-[#000000] font-medium"
                         >
-                            카카오
+                            <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 3C5.925 3 1 6.925 1 11.775C1 14.825 3.025 17.5 6.075 19.025C5.55 20.85 4.3 22.95 4.25 23.025C4.1 23.275 4.375 23.55 4.625 23.375C6.725 21.975 9.075 20.275 9.9 19.725C10.575 19.825 11.275 19.875 12 19.875C18.075 19.875 23 15.95 23 11.1C23 6.25 18.075 3 12 3Z" />
+                            </svg>
+                            카카오로 시작하기
+                        </button>
+                        <button
+                            onClick={() => handleSocialLogin('naver')}
+                            className="flex items-center justify-center w-full px-4 py-3 border border-traditional-muted rounded-lg hover:bg-green-50 transition-colors bg-[#03C75A] text-white font-medium"
+                        >
+                            <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M16.2733 12.845L7.376 0H0V24H7.72695V11.1549L16.624 24H24V0H16.2733V12.845Z" />
+                            </svg>
+                            네이버로 시작하기
                         </button>
                         <button
                             onClick={() => handleSocialLogin('google')}
-                            className="flex items-center justify-center px-4 py-2 border border-traditional-muted rounded-lg hover:bg-gray-50 transition-colors bg-white text-gray-700"
+                            className="flex items-center justify-center w-full px-4 py-3 border border-traditional-muted rounded-lg hover:bg-gray-50 transition-colors bg-white text-gray-700 font-medium"
                         >
-                            Google
+                            <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12.24 10.285V14.4H16.8172C16.6995 15.528 15.8325 17.415 12.24 17.415C9.0765 17.415 6.504 14.79 6.504 11.625C6.504 8.46 9.0765 5.835 12.24 5.835C14.037 5.835 15.2355 6.6045 15.9225 7.2645L18.9315 4.365C17.0055 2.565 14.8215 1.5 12.24 1.5C6.651 1.5 2.115 6.036 2.115 11.625C2.115 17.214 6.651 21.75 12.24 21.75C18.0855 21.75 21.945 17.6355 21.945 11.88C21.945 11.196 21.8865 10.701 21.7785 10.285H12.24Z" />
+                            </svg>
+                            Google로 시작하기
                         </button>
                     </div>
                 </div>
