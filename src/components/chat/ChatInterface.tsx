@@ -322,43 +322,41 @@ export default function ChatInterface(props: ChatInterfaceProps) {
                         </div>
                     </div>
                 </div>
-                </div>
-    )
-}
-{/* Reservation Modal */ }
-{
-    showReservationModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 animate-in fade-in duration-200">
-            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 text-center transform transition-all scale-100">
-                <div className="w-12 h-12 bg-traditional-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Calendar className="w-6 h-6 text-traditional-accent" />
-                </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">
-                    진료 예약 안내
-                </h3>
-                <p className="text-gray-600 text-sm mb-6 leading-relaxed">
-                    죽전한의원의 전문적인 진료를 위해<br />
-                    예약 페이지로 이동하시겠습니까?
-                </p>
-                <div className="flex flex-col gap-3">
-                    <Link
-                        href="/medical/care" // Assuming this is the reservation or dashboard page
-                        className="w-full py-3 bg-traditional-accent text-white rounded-xl font-medium hover:bg-opacity-90 transition-colors"
-                        onClick={() => setShowReservationModal(false)}
-                    >
-                        예, 예약하겠습니다
-                    </Link>
-                    <button
-                        onClick={() => setShowReservationModal(false)}
-                        className="w-full py-3 bg-gray-100 text-gray-600 rounded-xl font-medium hover:bg-gray-200 transition-colors"
-                    >
-                        아니오, 괜찮습니다
-                    </button>
-                </div>
-            </div>
-        </div>
-    )
-}
+
+{/* Reservation Modal */}
+            {
+                showReservationModal && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+                        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 text-center transform transition-all scale-100">
+                            <div className="w-12 h-12 bg-traditional-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <Calendar className="w-6 h-6 text-traditional-accent" />
+                            </div>
+                            <h3 className="text-lg font-bold text-gray-900 mb-2">
+                                진료 예약 안내
+                            </h3>
+                            <p className="text-gray-600 text-sm mb-6 leading-relaxed">
+                                죽전한의원의 전문적인 진료를 위해<br />
+                                예약 페이지로 이동하시겠습니까?
+                            </p>
+                            <div className="flex flex-col gap-3">
+                                <Link
+                                    href="/medical/care" // Assuming this is the reservation or dashboard page
+                                    className="w-full py-3 bg-traditional-accent text-white rounded-xl font-medium hover:bg-opacity-90 transition-colors"
+                                    onClick={() => setShowReservationModal(false)}
+                                >
+                                    예, 예약하겠습니다
+                                </Link>
+                                <button
+                                    onClick={() => setShowReservationModal(false)}
+                                    className="w-full py-3 bg-gray-100 text-gray-600 rounded-xl font-medium hover:bg-gray-200 transition-colors"
+                                >
+                                    아니오, 괜찮습니다
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
         </div >
     );
 }
