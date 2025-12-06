@@ -114,7 +114,7 @@ export default function LandingPage() {
                 <div className="absolute inset-0 bg-gray-200 flex items-center justify-center text-gray-400">
                   <Sun size={48} />
                 </div>
-                <div className="absolute inset-0 bg-[url('/images/module-resilience.png')] bg-cover bg-center opacity-80 group-hover:scale-105 transition-transform duration-500" />
+                <div className="absolute inset-0 bg-[url('/images/module-resilience.jpg')] bg-cover bg-center opacity-80 group-hover:scale-105 transition-transform duration-500" />
               </div>
               <div className="p-6 flex-1 flex flex-col">
                 <h3 className="text-xl font-bold text-traditional-text mb-2">회복력·면역</h3>
@@ -136,7 +136,7 @@ export default function LandingPage() {
           <Link href="/healthcare/chat?topic=women" className="group">
             <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-traditional-muted hover:shadow-lg transition-all duration-300 h-full flex flex-col">
               <div className="h-48 bg-gray-100 relative overflow-hidden">
-                <div className="absolute inset-0 bg-[url('/images/module-women.png')] bg-cover bg-center opacity-80 group-hover:scale-105 transition-transform duration-500" />
+                <div className="absolute inset-0 bg-[url('/images/module-women.jpg')] bg-cover bg-center opacity-80 group-hover:scale-105 transition-transform duration-500" />
               </div>
               <div className="p-6 flex-1 flex flex-col">
                 <h3 className="text-xl font-bold text-traditional-text mb-2">여성 밸런스</h3>
@@ -180,7 +180,7 @@ export default function LandingPage() {
           <Link href="/healthcare/chat?topic=digestion" className="group">
             <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-traditional-muted hover:shadow-lg transition-all duration-300 h-full flex flex-col">
               <div className="h-48 bg-gray-100 relative overflow-hidden">
-                <div className="absolute inset-0 bg-[url('/images/module-digestion.png')] bg-cover bg-center opacity-80 group-hover:scale-105 transition-transform duration-500" />
+                <div className="absolute inset-0 bg-[url('/images/module-digestion.jpg')] bg-cover bg-center opacity-80 group-hover:scale-105 transition-transform duration-500" />
               </div>
               <div className="p-6 flex-1 flex flex-col">
                 <h3 className="text-xl font-bold text-traditional-text mb-2">소화·수면 리듬</h3>
@@ -202,7 +202,7 @@ export default function LandingPage() {
           <Link href="/healthcare/chat?topic=pregnancy" className="group">
             <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-traditional-muted hover:shadow-lg transition-all duration-300 h-full flex flex-col">
               <div className="h-48 bg-gray-100 relative overflow-hidden">
-                <div className="absolute inset-0 bg-[url('/images/module-pregnancy.png')] bg-cover bg-center opacity-80 group-hover:scale-105 transition-transform duration-500" />
+                <div className="absolute inset-0 bg-[url('/images/module-pregnancy.jpg')] bg-cover bg-center opacity-80 group-hover:scale-105 transition-transform duration-500" />
               </div>
               <div className="p-6 flex-1 flex flex-col">
                 <h3 className="text-xl font-bold text-traditional-text mb-2">임신 준비 생활 체크</h3>
