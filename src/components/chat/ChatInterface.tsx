@@ -226,12 +226,24 @@ export default function ChatInterface(props: ChatInterfaceProps) {
                         >
                             {/* Avatar */}
                             <div
-                                className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 shadow-sm ${msg.role === "ai"
-                                    ? "bg-white text-traditional-accent border border-indigo-100"
-                                    : "bg-teal-100 text-teal-600"
+                                className={`w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0 shadow-sm overflow-hidden border-2 ${msg.role === "ai"
+                                    ? "border-traditional-accent"
+                                    : "border-teal-200"
                                     }`}
                             >
-                                {msg.role === "ai" ? <div className="text-xs font-bold">AI</div> : <User size={20} />}
+                                {msg.role === "ai" ? (
+                                    <img
+                                        src="/images/character-doctor.jpg"
+                                        alt="Doctor"
+                                        className="w-full h-full object-cover"
+                                    />
+                                ) : (
+                                    <img
+                                        src="/images/character-patient.jpg"
+                                        alt="Patient"
+                                        className="w-full h-full object-cover"
+                                    />
+                                )}
                             </div>
 
                             {/* Bubble */}
@@ -247,8 +259,12 @@ export default function ChatInterface(props: ChatInterfaceProps) {
                     ))}
                     {isLoading && (
                         <div className="flex items-start gap-3">
-                            <div className="w-10 h-10 rounded-full bg-white text-traditional-accent border border-indigo-100 flex items-center justify-center shadow-sm">
-                                <div className="text-xs font-bold">AI</div>
+                            <div className="w-14 h-14 rounded-full border-2 border-traditional-accent flex items-center justify-center shadow-sm overflow-hidden flex-shrink-0">
+                                <img
+                                    src="/images/character-doctor.jpg"
+                                    alt="Doctor"
+                                    className="w-full h-full object-cover"
+                                />
                             </div>
                             <div className="bg-white px-5 py-3 rounded-2xl rounded-tl-none border border-indigo-100 shadow-sm">
                                 <div className="flex gap-1">
