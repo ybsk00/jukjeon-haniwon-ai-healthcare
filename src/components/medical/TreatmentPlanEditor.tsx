@@ -12,10 +12,7 @@ type TreatmentItem = {
 };
 
 export default function TreatmentPlanEditor() {
-    const [items, setItems] = useState<TreatmentItem[]>([
-        { id: "1", type: "침치료", description: "경추 및 어깨 근육 이완", frequency: "주 2회", duration: "4주" },
-        { id: "2", type: "한약", description: "갈근탕 가감 (근육 긴장 완화)", frequency: "매일 3회", duration: "7일" }
-    ]);
+    const [items, setItems] = useState<TreatmentItem[]>([]);
 
     const addItem = () => {
         const newItem: TreatmentItem = {
