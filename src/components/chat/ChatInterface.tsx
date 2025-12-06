@@ -322,8 +322,9 @@ export default function ChatInterface(props: ChatInterfaceProps) {
                         </div>
                     </div>
                 </div>
+            )}
 
-{/* Reservation Modal */}
+            {/* Reservation Modal */}
             {
                 showReservationModal && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 animate-in fade-in duration-200">
