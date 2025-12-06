@@ -139,7 +139,7 @@ create table public.clinical_images (
 );
 
 -- 7. Logs
-create table public.audit_logs (
+create table if not exists public.audit_logs (
   id uuid primary key default uuid_generate_v4(),
   actor_user_id uuid references auth.users(id) on delete set null,
   entity_table text,
@@ -147,6 +147,9 @@ create table public.audit_logs (
   action text, -- 'view', 'create', 'update', 'delete'
   created_at timestamptz default now()
 );
+
+-- Safely add metadata column if it doesn't exist
+alter table public.audit_logs add column if not exists metadata jsonb;
 
 -- RLS Policies (Basic Setup - to be refined)
 alter table public.patient_profiles enable row level security;
@@ -164,3 +167,43 @@ create policy "Users can view own sessions" on public.chat_sessions for select u
 create policy "Users can view own messages" on public.chat_messages for select using ( session_id in (select id from chat_sessions where user_id = auth.uid() or anonymous_id is not null) );
 
 -- Note: More complex policies for Staff/Doctor access needed later.
+
+-- 8. Security Helper Functions
+create or replace function public.is_staff()
+returns boolean as $$
+begin
+  return exists (
+    select 1 from public.staff_users
+    where user_id = auth.uid()
+    and role in ('doctor', 'staff', 'admin')
+  );
+end;
+$$ language plpgsql security definer;
+
+-- 9. Advanced RLS Policies
+
+-- Staff Users Table
+alter table public.staff_users enable row level security;
+create policy "Users can view own staff role" on public.staff_users for select using (auth.uid() = user_id);
+create policy "Staff can view all staff" on public.staff_users for select using (public.is_staff());
+
+-- Clinical Notes & Treatment Plans
+alter table public.clinical_notes enable row level security;
+create policy "Staff can manage clinical notes" on public.clinical_notes for all using (public.is_staff());
+
+alter table public.treatment_plans enable row level security;
+create policy "Staff can manage treatment plans" on public.treatment_plans for all using (public.is_staff());
+create policy "Patients can view own treatment plans" on public.treatment_plans for select using (
+  visit_id in (select id from visits where user_id = auth.uid())
+);
+
+-- Reminders
+alter table public.reminders enable row level security;
+create policy "Users can view own reminders" on public.reminders for select using (auth.uid() = user_id);
+create policy "Staff can manage reminders" on public.reminders for all using (public.is_staff());
+
+-- Audit Logs
+alter table public.audit_logs enable row level security;
+create policy "Staff can view audit logs" on public.audit_logs for select using (public.is_staff());
+create policy "System can insert audit logs" on public.audit_logs for insert with check (true); -- Ideally restricted to server-side only
+

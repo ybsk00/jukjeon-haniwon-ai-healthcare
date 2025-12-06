@@ -58,5 +58,21 @@ export async function updateSession(request: NextRequest) {
         return NextResponse.redirect(url)
     }
 
+    // RBAC: Protect Doctor Dashboard
+    if (user && request.nextUrl.pathname.startsWith('/medical/dashboard')) {
+        const { data: staff } = await supabase
+            .from('staff_users')
+            .select('role')
+            .eq('user_id', user.id)
+            .single()
+
+        // If not staff/doctor, redirect to patient chat
+        if (!staff || !['doctor', 'admin', 'staff'].includes(staff.role)) {
+            const url = request.nextUrl.clone()
+            url.pathname = '/medical/chat'
+            return NextResponse.redirect(url)
+        }
+    }
+
     return supabaseResponse
 }
