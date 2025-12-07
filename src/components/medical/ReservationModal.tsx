@@ -1,4 +1,3 @@
-```typescript
 "use client";
 
 import { useState, useEffect } from "react";
@@ -36,7 +35,7 @@ export default function ReservationModal({ isOpen, onClose, initialTab = "book" 
         try {
             // 1. Get User
             const { data: { user } } = await supabase.auth.getUser();
-            
+
             if (user) {
                 setUserId(user.id);
                 // Try to get name from metadata or email
@@ -78,7 +77,7 @@ export default function ReservationModal({ isOpen, onClose, initialTab = "book" 
 
     const handleConfirm = async () => {
         setIsSubmitting(true);
-        
+
         try {
             if (activeTab === 'cancel') {
                 // Cancellation Logic
@@ -90,7 +89,7 @@ export default function ReservationModal({ isOpen, onClose, initialTab = "book" 
 
                 const { error } = await supabase
                     .from('patients')
-                    .update({ 
+                    .update({
                         status: 'canceled',
                         complaint: '예약 취소' // Update reason if needed
                     })
@@ -106,8 +105,8 @@ export default function ReservationModal({ isOpen, onClose, initialTab = "book" 
                     return;
                 }
 
-                const timeString = `${ date } ${ hour }:${ minute } `;
-                
+                const timeString = `${date} ${hour}:${minute}`;
+
                 if (activeTab === 'reschedule' && existingReservation) {
                     // Update existing
                     const { error } = await supabase
@@ -118,7 +117,7 @@ export default function ReservationModal({ isOpen, onClose, initialTab = "book" 
                             type: '재진'
                         })
                         .eq('id', existingReservation.id);
-                    
+
                     if (error) throw error;
                 } else {
                     // Create new
@@ -135,7 +134,7 @@ export default function ReservationModal({ isOpen, onClose, initialTab = "book" 
                                 keywords: ['예약']
                             }
                         ]);
-                    
+
                     if (error) throw error;
                 }
             }
@@ -160,7 +159,7 @@ export default function ReservationModal({ isOpen, onClose, initialTab = "book" 
 
     // Generate hours (0-23)
     const hours = Array.from({ length: 24 }, (_, i) => i.toString().padStart(2, '0'));
-    
+
     // Generate minutes (0, 10, 20, 30, 40, 50)
     const minutes = ["00", "10", "20", "30", "40", "50"];
 
@@ -208,19 +207,19 @@ export default function ReservationModal({ isOpen, onClose, initialTab = "book" 
                             <div className="flex bg-gray-100 p-1 rounded-xl mb-6">
                                 <button
                                     onClick={() => setActiveTab("book")}
-                                    className={`flex - 1 py - 2 text - sm font - medium rounded - lg transition - all ${ activeTab === "book" ? "bg-white text-traditional-accent shadow-sm" : "text-gray-500 hover:text-gray-700" } `}
+                                    className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${activeTab === "book" ? "bg-white text-traditional-accent shadow-sm" : "text-gray-500 hover:text-gray-700"}`}
                                 >
                                     예약하기
                                 </button>
                                 <button
                                     onClick={() => setActiveTab("reschedule")}
-                                    className={`flex - 1 py - 2 text - sm font - medium rounded - lg transition - all ${ activeTab === "reschedule" ? "bg-white text-traditional-accent shadow-sm" : "text-gray-500 hover:text-gray-700" } `}
+                                    className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${activeTab === "reschedule" ? "bg-white text-traditional-accent shadow-sm" : "text-gray-500 hover:text-gray-700"}`}
                                 >
                                     예약변경
                                 </button>
                                 <button
                                     onClick={() => setActiveTab("cancel")}
-                                    className={`flex - 1 py - 2 text - sm font - medium rounded - lg transition - all ${ activeTab === "cancel" ? "bg-white text-red-500 shadow-sm" : "text-gray-500 hover:text-gray-700" } `}
+                                    className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${activeTab === "cancel" ? "bg-white text-red-500 shadow-sm" : "text-gray-500 hover:text-gray-700"}`}
                                 >
                                     예약취소
                                 </button>
@@ -238,7 +237,7 @@ export default function ReservationModal({ isOpen, onClose, initialTab = "book" 
                                                     <p className="font-bold mb-1">진료 예약</p>
                                                     <p>원하시는 날짜와 시간을 선택해주세요.</p>
                                                 </div>
-                                                
+
                                                 <div className="space-y-1">
                                                     <label className="text-xs font-medium text-gray-500">예약자 성함</label>
                                                     <div className="relative">
@@ -302,7 +301,7 @@ export default function ReservationModal({ isOpen, onClose, initialTab = "book" 
                                                     <p className="font-bold mb-1">예약 변경</p>
                                                     <p>변경하실 날짜와 시간을 선택해주세요.</p>
                                                 </div>
-                                                
+
                                                 {!existingReservation ? (
                                                     <div className="text-center py-8 text-gray-500 bg-gray-50 rounded-xl border border-dashed border-gray-300">
                                                         변경할 예약 내역이 없습니다.
@@ -385,7 +384,7 @@ export default function ReservationModal({ isOpen, onClose, initialTab = "book" 
                                                             <p className="font-bold text-gray-900">{existingReservation.time}</p>
                                                             <p className="text-sm text-gray-600">{existingReservation.name}님</p>
                                                         </div>
-                                                        
+
                                                         <div>
                                                             <p className="text-sm text-gray-600 font-medium mb-2">취소 사유</p>
                                                             <select className="w-full p-2 border rounded-lg text-sm">
@@ -405,7 +404,7 @@ export default function ReservationModal({ isOpen, onClose, initialTab = "book" 
                                 <button
                                     onClick={handleConfirm}
                                     disabled={isSubmitting || (activeTab !== 'book' && !existingReservation)}
-                                    className={`w - full py - 3 rounded - xl font - medium text - white transition - colors mt - 4 ${ activeTab === "cancel" ? "bg-red-500 hover:bg-red-600" : "bg-traditional-accent hover:bg-opacity-90" } ${ isSubmitting || (activeTab !== 'book' && !existingReservation) ? "opacity-50 cursor-not-allowed" : "" } `}
+                                    className={`w-full py-3 rounded-xl font-medium text-white transition-colors mt-4 ${activeTab === "cancel" ? "bg-red-500 hover:bg-red-600" : "bg-traditional-accent hover:bg-opacity-90"} ${isSubmitting || (activeTab !== 'book' && !existingReservation) ? "opacity-50 cursor-not-allowed" : ""}`}
                                 >
                                     {isSubmitting ? "처리중..." : (
                                         <>
@@ -426,20 +425,19 @@ export default function ReservationModal({ isOpen, onClose, initialTab = "book" 
 
 function ChevronDown({ className, size }: { className?: string, size?: number }) {
     return (
-        <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            width={size || 24} 
-            height={size || 24} 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="currentColor" 
-            strokeWidth="2" 
-            strokeLinecap="round" 
-            strokeLinejoin="round" 
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width={size || 24}
+            height={size || 24}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             className={className}
         >
-            <path d="m6 9 6 6 6-6"/>
+            <path d="m6 9 6 6 6-6" />
         </svg>
     );
 }
-```
