@@ -102,6 +102,13 @@ export default function ReservationModal({ isOpen, onClose, initialTab = "book" 
                     return;
                 }
 
+                // Prevent duplicate booking
+                if (activeTab === 'book' && existingReservation) {
+                    alert("이미 예약된 내역이 있습니다. 기존 예약을 변경하거나 취소해주세요.");
+                    setIsSubmitting(false);
+                    return;
+                }
+
                 const timeString = `${date} ${hour}:${minute}`;
 
                 if (activeTab === 'reschedule' && existingReservation) {

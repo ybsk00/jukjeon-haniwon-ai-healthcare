@@ -30,7 +30,7 @@ export default function PatientDashboard() {
                 .select('*')
                 .order('created_at', { ascending: false })
                 .limit(1)
-                .single();
+                .maybeSingle();
 
             if (data) {
                 // Parse the time string "YYYY-MM-DD HH:MM"
@@ -49,6 +49,13 @@ export default function PatientDashboard() {
                     time: displayTime,
                     type: data.complaint || "일반 진료",
                     doctor: "김한의 원장" // Placeholder or fetch from DB if available
+                });
+            } else {
+                setAppointment({
+                    date: "예약 없음",
+                    time: "",
+                    type: "예정된 진료가 없습니다.",
+                    doctor: ""
                 });
             }
         } catch (error) {
