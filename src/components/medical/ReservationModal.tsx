@@ -50,7 +50,7 @@ export default function ReservationModal({ isOpen, onClose, initialTab = "book" 
                     .eq('status', 'pending') // Only pending reservations
                     .order('created_at', { ascending: false })
                     .limit(1)
-                    .single();
+                    .maybeSingle();
 
                 if (reservation) {
                     setExistingReservation(reservation);
@@ -140,9 +140,15 @@ export default function ReservationModal({ isOpen, onClose, initialTab = "book" 
             }
 
             setStep(3); // Success
-        } catch (e) {
-            console.error("Exception:", e);
-            alert("처리 중 오류가 발생했습니다.");
+        } catch (e: any) {
+            console.error("Exception details:", {
+                message: e?.message,
+                details: e?.details,
+                hint: e?.hint,
+                code: e?.code,
+                fullError: e
+            });
+            alert(`처리 중 오류가 발생했습니다: ${e?.message || "알 수 없는 오류"}`);
         } finally {
             setIsSubmitting(false);
         }
