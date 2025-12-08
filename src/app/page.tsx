@@ -228,7 +228,7 @@ export default function LandingPage() {
               <div className="w-8 h-8 bg-traditional-primary rounded-lg flex items-center justify-center">
                 <span className="text-white text-xs font-bold font-serif">JK</span>
               </div>
-              <span className="text-xl font-bold text-traditional-text font-serif">죽전한의원</span>
+              <span className="text-xl font-bold text-traditional-text font-serif">한의원</span>
             </div>
             <div className="text-sm text-traditional-subtext space-y-2 font-light">
               <p className="flex items-center gap-2"><span className="w-16 font-medium text-traditional-text/80">주소</span> 대구광역시 달서구 와룡로 282 3-4층</p>
@@ -249,7 +249,7 @@ export default function LandingPage() {
           </div>
         </div>
         <div className="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-traditional-muted/50 text-center text-xs text-traditional-subtext/60 font-light">
-          <p>© 2025 죽전한의원. All rights reserved. 본 사이트의 콘텐츠는 저작권법의 보호를 받습니다.</p>
+          <p>© 2025 한의원. All rights reserved. 본 사이트의 콘텐츠는 저작권법의 보호를 받습니다.</p>
         </div>
       </footer>
 

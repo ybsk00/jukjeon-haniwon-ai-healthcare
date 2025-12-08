@@ -10,8 +10,8 @@ const notoSansKr = Noto_Sans_KR({
 });
 
 export const metadata: Metadata = {
-  title: "죽전한의원 - 100년 전통의 맥",
-  description: "2대째 이어오는 100년 전통 죽전한의원입니다.",
+  title: "한의원 - 100년 전통의 맥",
+  description: "2대째 이어오는 100년 전통 한의원입니다.",
 };
 
 export default function RootLayout({

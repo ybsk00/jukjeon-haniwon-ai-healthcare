@@ -23,7 +23,7 @@ export default function MedicalChatInterface() {
         // Initial Medical Greeting
         setMessages([{
             role: "ai",
-            content: "안녕하세요. 죽전한의원 메디컬 AI입니다. \n더 정확한 진료를 위해 현재 불편하신 증상을 구체적으로 말씀해 주세요. (예: 통증 부위, 시작된 시기, 악화 요인 등)"
+            content: "안녕하세요. 한의원 메디컬 AI입니다. \n더 정확한 진료를 위해 현재 불편하신 증상을 구체적으로 말씀해 주세요. (예: 통증 부위, 시작된 시기, 악화 요인 등)"
         }]);
     }, []);
 
@@ -139,8 +139,8 @@ export default function MedicalChatInterface() {
                         {/* Avatar */}
                         <div
                             className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 shadow-sm ${msg.role === "ai"
-                                    ? "bg-blue-600 text-white"
-                                    : "bg-slate-200 text-slate-500"
+                                ? "bg-blue-600 text-white"
+                                : "bg-slate-200 text-slate-500"
                                 }`}
                         >
                             {msg.role === "ai" ? <Bot size={18} /> : <User size={18} />}
@@ -149,8 +149,8 @@ export default function MedicalChatInterface() {
                         {/* Bubble */}
                         <div
                             className={`max-w-[85%] px-4 py-3 rounded-2xl text-sm leading-relaxed shadow-sm ${msg.role === "ai"
-                                    ? "bg-white text-slate-800 border border-slate-200 rounded-tl-none"
-                                    : "bg-blue-600 text-white rounded-tr-none"
+                                ? "bg-white text-slate-800 border border-slate-200 rounded-tl-none"
+                                : "bg-blue-600 text-white rounded-tr-none"
                                 }`}
                         >
                             {msg.imageUrl && (

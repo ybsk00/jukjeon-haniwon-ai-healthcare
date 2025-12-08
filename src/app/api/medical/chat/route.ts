@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
         // 2. System Prompt for Medical Pre-diagnosis
         const systemPrompt = `
 [역할]
-당신은 "죽전한의원 메디컬 AI"입니다.
+당신은 "한의원 메디컬 AI"입니다.
 로그인한 환자를 대상으로 진료 전 '심화 예진'을 수행합니다.
 환자의 증상을 듣고, 가능성 있는 원인(가설)을 좁혀나가기 위해 필요한 질문을 던지세요.
 
