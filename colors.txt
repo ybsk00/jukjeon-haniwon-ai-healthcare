@@ -1,0 +1,6 @@
+Dominant colors in C:/Users/À¯¹ü¼®/.gemini/antigravity/brain/d47e1a91-1f62-448b-b90e-15b0c2c90de0/uploaded_image_1765269698714.png:
+#f7f5f2 (RGB: (247, 245, 242), Count: 4830)
+#ffffff (RGB: (255, 255, 255), Count: 1387)
+#aaaaaa (RGB: (170, 170, 170), Count: 1208)
+#737e6e (RGB: (115, 126, 110), Count: 899)
+#727d6d (RGB: (114, 125, 109), Count: 869)
