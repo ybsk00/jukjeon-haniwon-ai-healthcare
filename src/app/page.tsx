@@ -31,13 +31,13 @@ export default function LandingPage() {
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-b from-traditional-bg via-transparent to-traditional-bg z-10"></div>
           {/* Hero Video Background */}
-          <div className="absolute inset-0 z-0 bg-[#C8B6A6]">
+          <div className="absolute inset-0 z-0">
             <video
               autoPlay
               loop
               muted
               playsInline
-              className="w-full h-full object-cover opacity-40 mix-blend-multiply filter sepia-[0.3]"
+              className="w-full h-full object-cover"
             >
               <source src="/grok-video-d2ce9230-c0a9-4bed-9097-3443b0c49cfd.mp4" type="video/mp4" />
             </video>

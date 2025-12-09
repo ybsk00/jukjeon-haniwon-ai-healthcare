@@ -13,13 +13,13 @@ const config: Config = {
         foreground: "var(--foreground)",
         // Healthcare Theme (Traditional/Hanji + AI)
         traditional: {
-          bg: "#727d6d", // Extracted from image
-          text: "#F9F7F2", // Light text for dark background
-          subtext: "#E5E0D5", // Muted light text
+          bg: "#E6E2D3", // Darker warm Hanji tone
+          text: "#1A1A1A", // Reverted to dark text
+          subtext: "#4A4A4A", // Reverted to dark gray
           primary: "#2C3E2C", // Deep Forest Green (Traditional)
           secondary: "#8C6A4A", // Deep Earthy Brown
           accent: "#D4AF37", // Muted Gold (Sophistication)
-          muted: "#A3A3A3", // Adjusted muted color for visibility
+          muted: "#E5E0D5", // Reverted to warm gray
           ai: "#3B82F6", // AI Blue (Subtle accent)
         },
         // Medical Theme (Modern/Clinic - Integrated with Traditional)
