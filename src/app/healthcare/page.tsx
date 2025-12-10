@@ -71,49 +71,52 @@ export default function HealthcarePage() {
 
             <SimpleGrid cols={{ base: 1, sm: 1 }} spacing="md">
                 {services.map((service) => (
-                    <Card
+                    <Link
                         key={service.id}
-                        component={Link}
                         href={`/healthcare/${service.id}`}
-                        padding="lg"
-                        radius="md"
-                        withBorder
-                        style={{
-                            transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-                            cursor: 'pointer'
-                        }}
-                        className="hover:shadow-md active:scale-[0.99]"
+                        style={{ textDecoration: 'none' }}
                     >
-                        <Group align="flex-start" wrap="nowrap">
-                            <ThemeIcon
-                                size={48}
-                                radius="md"
-                                variant="light"
-                                color={service.color}
-                            >
-                                <service.icon size={24} />
-                            </ThemeIcon>
+                        <Card
+                            padding="lg"
+                            radius="md"
+                            withBorder
+                            style={{
+                                transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                                cursor: 'pointer'
+                            }}
+                            className="hover:shadow-md active:scale-[0.99]"
+                        >
+                            <Group align="flex-start" wrap="nowrap">
+                                <ThemeIcon
+                                    size={48}
+                                    radius="md"
+                                    variant="light"
+                                    color={service.color}
+                                >
+                                    <service.icon size={24} />
+                                </ThemeIcon>
 
-                            <Stack gap={4} style={{ flex: 1 }}>
-                                <Group>
-                                    <Badge
-                                        variant="light"
-                                        color="sage-green"
-                                        size="sm"
-                                        radius="sm"
-                                    >
-                                        {service.title}
-                                    </Badge>
-                                </Group>
-                                <Title order={3} size="h4" c="dark.8" mt={4}>
-                                    {service.subtitle}
-                                </Title>
-                                <Text size="sm" c="dimmed" lh={1.5}>
-                                    {service.description}
-                                </Text>
-                            </Stack>
-                        </Group>
-                    </Card>
+                                <Stack gap={4} style={{ flex: 1 }}>
+                                    <Group>
+                                        <Badge
+                                            variant="light"
+                                            color="sage-green"
+                                            size="sm"
+                                            radius="sm"
+                                        >
+                                            {service.title}
+                                        </Badge>
+                                    </Group>
+                                    <Title order={3} size="h4" c="dark.8" mt={4}>
+                                        {service.subtitle}
+                                    </Title>
+                                    <Text size="sm" c="dimmed" lh={1.5}>
+                                        {service.description}
+                                    </Text>
+                                </Stack>
+                            </Group>
+                        </Card>
+                    </Link>
                 ))}
             </SimpleGrid>
         </Container>
